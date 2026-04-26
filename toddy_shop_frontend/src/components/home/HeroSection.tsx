@@ -8,17 +8,15 @@ export function HeroSection() {
     <section className="relative min-h-[720px] flex items-center text-white overflow-hidden py-20 px-8">
       {/* Kerala background image */}
       <Image
-        src="https://images.unsplash.com/photo-1590123715937-89ec8a135e76?w=1800&q=80"
+        src="/kerala-hero.png"
         alt="Kerala backwaters at golden hour"
         fill
         priority
         className="object-cover object-center"
         sizes="100vw"
       />
-      {/* Dark overlay for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#001f0f]/85 via-[#003e1c]/75 to-[#00150a]/90" />
-      {/* Warm vignette on right side */}
-      <div className="absolute inset-0 bg-gradient-to-l from-black/30 to-transparent" />
+      {/* Green overlay — matches reference design */}
+      <div className="absolute inset-0 bg-[#1a3a1a]/70" />
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
         {/* Hero Left */}
@@ -120,16 +118,20 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll-down arrow */}
+      {/* Scroll-down arrow — fixed over everything, hides after scrolling past hero */}
       <button
-        onClick={() => window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" })}
-        aria-label="Scroll down"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 group cursor-pointer"
+        onClick={() => {
+          const next = document.querySelector("section + section, main > *:nth-child(2)");
+          if (next) next.scrollIntoView({ behavior: "smooth" });
+          else window.scrollBy({ top: window.innerHeight * 0.9, behavior: "smooth" });
+        }}
+        aria-label="Scroll to next section"
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9999] flex flex-col items-center gap-1 group cursor-pointer"
       >
-        <span className="text-[11px] font-bold tracking-[3px] uppercase text-white/50 group-hover:text-white/80 transition-colors">
+        <span className="text-[11px] font-bold tracking-[3px] uppercase text-white/60 group-hover:text-white transition-colors drop-shadow-lg">
           Explore
         </span>
-        <span className="hero-scroll-arrow material-symbols-outlined text-[32px] text-secondary-container group-hover:text-white transition-colors">
+        <span className="hero-scroll-arrow material-symbols-outlined text-[36px] text-[#ffb148] group-hover:text-white transition-colors drop-shadow-lg">
           keyboard_arrow_down
         </span>
       </button>
