@@ -1,11 +1,34 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { STATS, LEADERBOARD } from "@/lib/constants";
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [showArrow, setShowArrow] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      // Hide arrow once user scrolls past 60% of the hero
+      setShowArrow(rect.bottom > window.innerHeight * 0.4);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToNext = () => {
+    if (!sectionRef.current) return;
+    const next = sectionRef.current.nextElementSibling as HTMLElement | null;
+    if (next) {
+      next.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="relative min-h-[720px] flex items-center text-white overflow-hidden py-20 px-8">
+    <section ref={sectionRef} className="relative min-h-[720px] flex items-center text-white overflow-hidden py-20 px-8">
       {/* Kerala background image */}
       <Image
         src="/kerala-hero.png"
@@ -118,22 +141,21 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll-down arrow — fixed over everything, hides after scrolling past hero */}
+      {/* Scroll-down arrow — fixed, fades out as user scrolls past hero */}
       <button
-        onClick={() => {
-          const next = document.querySelector("section + section, main > *:nth-child(2)");
-          if (next) next.scrollIntoView({ behavior: "smooth" });
-          else window.scrollBy({ top: window.innerHeight * 0.9, behavior: "smooth" });
-        }}
+        onClick={scrollToNext}
         aria-label="Scroll to next section"
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9999] flex flex-col items-center gap-1 group cursor-pointer"
+        className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[9999] flex flex-col items-center gap-1 group cursor-pointer transition-all duration-500 ${showArrow ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
       >
-        <span className="text-[11px] font-bold tracking-[3px] uppercase text-white/60 group-hover:text-white transition-colors drop-shadow-lg">
+        <span className="text-[11px] font-bold tracking-[3px] uppercase text-white/60 group-hover:text-white/90 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
           Explore
         </span>
-        <span className="hero-scroll-arrow material-symbols-outlined text-[36px] text-[#ffb148] group-hover:text-white transition-colors drop-shadow-lg">
-          keyboard_arrow_down
-        </span>
+        <div className="relative">
+          <div className="absolute inset-0 rounded-full bg-white/10 backdrop-blur-sm scale-[2.2]" />
+          <span className="hero-scroll-arrow material-symbols-outlined text-[36px] text-[#ffb148] group-hover:text-white transition-colors relative drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+            expand_more
+          </span>
+        </div>
       </button>
     </section>
   );
