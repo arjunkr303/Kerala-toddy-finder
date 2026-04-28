@@ -1,9 +1,9 @@
-import { HeroSection } from "@/components/home/HeroSection";
-import { FeaturedShops } from "@/components/home/FeaturedShops";
-import { DistrictExplorer } from "@/components/home/DistrictExplorer";
-import { SignatureFlavors } from "@/components/home/SignatureFlavors";
-import { HowItWorks } from "@/components/home/HowItWorks";
-import { CTASection } from "@/components/home/CTASection";
+import { HeroSection } from "@/features/home/components/HeroSection";
+import { FeaturedShops } from "@/features/home/components/FeaturedShops";
+import { DistrictExplorer } from "@/features/home/components/DistrictExplorer";
+import { SignatureFlavors } from "@/features/home/components/SignatureFlavors";
+import { HowItWorks } from "@/features/home/components/HowItWorks";
+import { CTASection } from "@/features/home/components/CTASection";
 
 export default function Home() {
   return (
