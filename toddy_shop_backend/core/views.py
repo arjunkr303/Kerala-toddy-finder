@@ -220,3 +220,33 @@ class LicenseTypeViewSet(LookupViewSet):
 class ReviewCategoryViewSet(LookupViewSet):
     queryset = ReviewCategory.objects.all()
     serializer_class = ReviewCategorySerializer
+
+
+@extend_schema(tags=["System"])
+class HealthCheckView(generics.GenericAPIView):
+    """
+    Checks the health of the API and its dependencies.
+    """
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        from django.db import connection
+
+        health_data = {
+            "api": "healthy",
+            "database": "unhealthy",
+        }
+
+        try:
+            connection.ensure_connection()
+            health_data["database"] = "healthy"
+            return APIResponse(data=health_data, message="API is healthy.")
+        except Exception as e:
+            health_data["database"] = f"error: {str(e)}"
+            return APIResponse(
+                data=health_data,
+                message="API is unhealthy.",
+                status=503,
+                is_success=False,
+            )
