@@ -1,5 +1,5 @@
 import { FEATURED_SHOPS } from "@/lib/constants";
-import { ShopCard } from "@/components/ui/ShopCard";
+import { ShopCard } from "@/features/shops/components/ShopCard";
 
 export function FeaturedShops() {
   return (

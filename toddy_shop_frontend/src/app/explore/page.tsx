@@ -5,7 +5,7 @@ import {
   FEATURED_EXPLORE_SHOP,
   RECOMMENDED_SHOPS,
   MAP_IMAGE,
-} from "@/lib/explore-data";
+} from "@/features/explore/data";
 
 export const metadata = {
   title: "Explore Shops | Toddy Finder",

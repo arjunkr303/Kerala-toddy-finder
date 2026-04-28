@@ -5,7 +5,7 @@ import {
   TOP_CONNOISSEURS,
   HERO_IMAGE,
   SIDEBAR_NAV,
-} from "@/lib/community-data";
+} from "@/features/community/data";
 
 export const metadata = {
   title: "Community Hub | Toddy Finder",
