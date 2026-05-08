@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import keralaPaths from "./kerala-paths.json";
 
 const DISTRICTS = keralaPaths.map(p => p.name).sort();
