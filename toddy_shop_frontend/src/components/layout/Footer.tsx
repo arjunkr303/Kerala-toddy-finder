@@ -9,7 +9,7 @@ export function Footer() {
             Shaap
           </div>
           <p className="text-stone-600 text-sm">
-            &copy; 2024 Kerala Shaap Discovery. Heritage preservation through
+            &copy; 2026 Kerala Shaap Discovery. Heritage preservation through
             community.
           </p>
         </div>
